@@ -20,12 +20,11 @@ killed_Urls=[]
 
 
 
-parser.add_argument('-oT', help='Path for text output file.', dest='text_file')
+parser.add_argument('-o', help='Path for text output file.', dest='text_file')
 parser.add_argument('-t', help='Number of concurrent threads. (default: 5)', dest='threads', type=int, default=5)
 parser.add_argument('-i', help='Import target URLs from file.', dest='import_file', nargs='?', const=True)
-parser.add_argument('-m', help='detect (D) or exploit(E)', dest='mode',  default='D')
 parser.add_argument('-q', help='Quiet mode. No output.', dest='quiet', action='store_true')
-parser.add_argument('--disable-redirects', help='disable redirects', dest='disable_redirects', action='store_true')
+
 args = parser.parse_args() # arguments to be parsed
 
 if args.quiet:
@@ -60,19 +59,12 @@ def initialize(url):
                 url2="".join([url,"&",query]) 
             else:
                 url2="".join([url,"?",query]) 
-            is_reflected = narrower(url2)
-            if is_reflected:
-                print(url2)
-                result.append(url2+"\n")
+
         if "=" in url:
             request2=update_request(url)
             response = requester(request2)
-            if type(response) != str:
 
-                is_reflected = narrower(request2)
-                if is_reflected:
-                    print(request2)
-                    result.append(request2+"\n")
+
 def requester(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0',

